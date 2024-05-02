@@ -221,7 +221,6 @@ export default {
     <button class="btn" @click="zoomIn">放大</button>
     <button class="btn" @click="zoomOut" style="margin-right: 60px">缩小</button>
   </div>
-
   <div class="content">
     <div class="list">
       <div class="list_top">
@@ -262,11 +261,8 @@ export default {
     </div>
     <div class="message">
       <h3>经纬度坐标: {{ coordinate[0] }}  {{ coordinate[1] }}</h3>
-      <br>
       <h3>摄像头id： {{ cameraid }} </h3>
-      <br>
       <h3>地块类型： {{ landtype }} </h3>
-      <br>
       <h3>告警记录： {{ warningrecord }} </h3>
     </div>
   </div>
@@ -328,6 +324,8 @@ export default {
   width: 100%;
   font-size: 1vw;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 .listbody {
   position: absolute;
@@ -338,9 +336,10 @@ export default {
   height:75%;
 }
 .title {
+  display: flex;
   height:60%;
   font-size: 1.5vw;
-  padding:1vh 0;
+  padding-left:8vw;
   color:#6c6a6a;
   font-weight: bold;
 }
@@ -377,7 +376,8 @@ export default {
   font-size:1.1vw;
 }
 .message {
-  padding-top: 2vh;
+  display: flex;
+  padding-top: 1vh;
   position: absolute;
   background-color: #ceeec2;
   top:12%;
@@ -390,6 +390,9 @@ export default {
   color:#6c6a6a;
 }
 .message h3 {
+  display: flex;
+  height:8vh;
+  padding-top: 2vh;
   font-size: 1vw;
   font-weight: bold;
   text-align: left;

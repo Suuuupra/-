@@ -16,7 +16,7 @@ import {transform} from 'ol/proj';
 import {onMounted, ref, toRefs, watch, nextTick, getCurrentInstance, inject, onUnmounted, computed} from "vue";
 import {getDistance} from 'ol/sphere'
 import axios from "axios";
-
+import { inAndOut,easingLinear } from 'ol/easing'
 export default {
   name: 'MapComponent',
   props: {
@@ -167,7 +167,7 @@ export default {
         layers: Layers,
         view: new View({
           center: fromLonLat(center),
-          zoom: 14,
+          zoom: 16,
           minZoom: 8,
           maxZoom: 18
         }),
@@ -185,11 +185,36 @@ export default {
 
     function updateMapCenter(newCenter) {
       if (map && newCenter) {
-        map.getView().setCenter(fromLonLat(newCenter));
-        map.getView().animate({center: fromLonLat(newCenter), duration: 500});
+        console.log('newcenter',newCenter)
+        //map.getView().setCenter(fromLonLat(newCenter));
+        const longitude = newCenter[0];
+        const latitude = newCenter[1];
+// 将经纬度转换为地图视图所使用的投影坐标
+        const center = fromLonLat([longitude, latitude])
+        const currentZoom = map.getView().getZoom();
+// 缩小地图到某个级别（比如缩小到当前级别的一半）
+     map.getView().animate({
+          zoom: currentZoom - 1,
+          duration: 800,
+          easing: inAndOut
+        }, function() {
+          // 第一个动画完成后，执行移动到目标点的动画
+          map.getView().animate({
+            center: center,
+            duration: 500,
+            easing: easingLinear
+          }, function() {
+            // 移动到目标点后，执行放大动画
+            map.getView().animate({
+              zoom: currentZoom, // 恢复到原来的缩放级别
+              center: center, // 保持中心不变
+              duration: 800,
+              easing: inAndOut
+            });
+          });
+        });
       }
     }
-
     function getCoordinates(event) {
       let lonlat = transform(event.coordinate, 'EPSG:3857', 'EPSG:4326');
       let lon = lonlat[0];
