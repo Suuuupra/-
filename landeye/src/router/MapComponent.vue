@@ -16,7 +16,7 @@ import {transform} from 'ol/proj';
 import {onMounted, ref, toRefs, watch, nextTick, getCurrentInstance, inject, onUnmounted, computed} from "vue";
 import {getDistance} from 'ol/sphere'
 import axios from "axios";
-import { inAndOut,easingLinear } from 'ol/easing'
+import { inAndOut } from 'ol/easing'
 export default {
   name: 'MapComponent',
   props: {
@@ -202,7 +202,7 @@ export default {
           map.getView().animate({
             center: center,
             duration: 500,
-            easing: easingLinear
+            easing: inAndOut
           }, function() {
             // 移动到目标点后，执行放大动画
             map.getView().animate({
