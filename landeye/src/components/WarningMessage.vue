@@ -1,7 +1,7 @@
 <template>
   <div class="warningmessage" :style="{top:showWarningMessage? '10%':'-100%' ,opacity: showWarningMessage? 0.9:0}">
     <div v-for="(item, index) in this.data" :key="item.id" class="warningmessage_item" v-if="this.data.length > 0">
-      <span>告警类型：{{ item.warnmsg_type_id }}</span>
+      <span @click="movepoint(item.cenlat,item.cenlon)">告警类型：{{ item.warnmsg_type_id }}</span>
       <button @click="ishandle(item.id)">上传日志</button>
     </div>
   </div>
@@ -10,6 +10,7 @@
 <script>
   import handleWarningMessage from './handleWarningMessage.vue'
   import axios from "axios";
+  import { EventBus } from '../eventbus.js';
   export default {
     components:{
         handleWarningMessage
@@ -34,6 +35,7 @@
         axios.get('http://8.148.10.46:3050/api/HandleWarnMsg')
             .then((response) => {
               this.data = response.data;
+              console.log('this',this.data)
             })
             .catch((error) => {
               console.error('Error fetching data:', error);
@@ -42,10 +44,13 @@
       ishandle(index){
         this.index = index
         this.showlog = !this.showlog
+      },
+      movepoint(cenlat,cenlon){
+        console.log(cenlat,cenlon)
+        const point=[cenlon,cenlat]
+        EventBus.emit('movepoint',point)
       }
-    }
-  }
-
+  }}
 </script>
 <style>
   .warningmessage {
@@ -67,6 +72,7 @@
    .warningmessage_item {
     border-radius: 10px;
     justify-content: space-between;
+    align-items: center;
     margin-top:10px;
     margin-bottom: 5px;
     width: 90%; 
@@ -76,16 +82,15 @@
     border-width: 4px;
     border-color: #dbe5d8;
     background-color: transparent;
-    padding-bottom: 1vh;
    }
    .warningmessage_item span {
-    margin-top: 13px;
     margin-left:35px;
     font-size:18px;
     color: #dbe5d8;
      font-weight: bold;
    }
    .warningmessage_item button {
+  display: flex;
   margin-left: 10px; /* 在按钮和文本之间添加一些空间 */
   font-size:16px;
   border-radius: 4px; /* 边角圆滑 */

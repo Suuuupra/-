@@ -1,7 +1,7 @@
 <template>
   <div class='container3'>
     <div class="datechoice2">
-     <div class="data_title">预警类型</div>
+     <div class="data_title">告警类型变化</div>
     <a-date-picker v-model="startDate" :show-time="true" @change="generateDateRange" style="width:100px;height:20px;"></a-date-picker>
     <a-date-picker v-model="endDate" :show-time="true" @change="generateDateRange" style="width:100px;height:20px;"></a-date-picker>
     </div>
@@ -26,12 +26,12 @@ export default {
           icon: 'rect',
           itemWidth: 14,itemHeight: 5,itemGap:10,
           data: ['工程车辆进入', '人为破坏', '焚烧纵火'],
-          right: 'center',bottom: '0px',
-          textStyle: {fontSize: 14,color: '#0c0c0c'}
+          right: '20%',bottom: '0px',
+          textStyle: {fontSize: 16,color: 'grey'}
         },
         grid: {
           top: "20%",
-          left: "10%",
+          left: "3%",
           right: "10%",
           bottom: "15%",
           containLabel: true,
@@ -43,8 +43,8 @@ export default {
           name: '日期', // X轴 name
           nameTextStyle: { // 坐标轴名称的文字样式
             fontSize: 16,
-            padding: [0, 0, 0, -5],
-            color:'black'
+            padding: [0, 0, 0, -10],
+            color:'grey'
           },
           axisLabel:{
             margin: 30,
@@ -71,8 +71,8 @@ export default {
           name: '数量',
           nameTextStyle: {
             fontSize: 16,
-            padding: [0, 0, 10, 0],
-            color:'black'
+            padding: [0, 0, 0, -50],
+            color:'grey'
           },
           type: 'value',
           axisLabel:{

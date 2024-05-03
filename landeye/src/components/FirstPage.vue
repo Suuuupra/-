@@ -1,5 +1,5 @@
 <script>
-import { onMounted, ref } from 'vue';
+import {onBeforeUnmount, onMounted, ref} from 'vue';
 import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -12,6 +12,8 @@ import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Overlay } from "ol";
 import axios from "axios";
+import { EventBus } from '../eventbus.js';
+import { inAndOut } from 'ol/easing'
 export default {
   name: 'MapComponent',
   setup() {
@@ -30,11 +32,18 @@ export default {
     ]
     const cameraSource = new VectorSource();
     const warningSource = new VectorSource();
-
+    const currentpoint =[]
 
     onMounted(() => {
-      initMap()
-    });
+      initMap();
+      EventBus.on('movepoint', (point) => {
+        currentpoint.value=point
+        movetopoint(currentpoint);
+      });
+    })
+     onBeforeUnmount(() => {
+       EventBus.off('movepoint');
+        });
 
     function initMap(){
       fetchData();
@@ -54,7 +63,6 @@ export default {
       let warningLayer = new VectorLayer({
         name: '告警点状态',
         source: warningSource,
-        visible: false,
       })
       addLayer = [
         cameraLayer,
@@ -69,7 +77,7 @@ export default {
         view: new View({
           projection: "EPSG:4326",
           center: [118.708611,24.769444],
-          zoom: 14,
+          zoom: 16,
           minzoom:8,
           maxzoom:17
         }),
@@ -99,6 +107,36 @@ export default {
           document.getElementById('popup-content').innerHTML = content;
         }
       });
+    }
+    function movetopoint(newcenter){
+      if (map && newcenter) {
+        const center=newcenter.value
+        console.log('newcenter',center)
+        //map.getView().setCenter(fromLonLat(newCenter));
+// 将经纬度转换为地图视图所使用的投影坐标
+        const currentZoom = map.getView().getZoom();
+// 缩小地图到某个级别（比如缩小到当前级别的一半）
+        map.getView().animate({
+          zoom: currentZoom - 1,
+          duration: 800,
+          easing: inAndOut
+        }, function() {
+          // 第一个动画完成后，执行移动到目标点的动画
+          map.getView().animate({
+            center: center,
+            duration: 500,
+            easing: inAndOut
+          }, function() {
+            // 移动到目标点后，执行放大动画
+            map.getView().animate({
+              zoom: currentZoom, // 恢复到原来的缩放级别
+              center: center, // 保持中心不变
+              duration: 800,
+              easing: inAndOut
+            });
+          });
+        });
+      }
     }
     function handleSelect(value){
       addLayer.forEach((item)=>{
@@ -203,7 +241,7 @@ export default {
     <div class="select">
       <a-select
           mode="multiple"
-          :default-value="['监控点']"
+          :default-value="['监控点','告警点状态']"
           style="margin-left:5px;width: 200px"
           placeholder="地图要素筛选"
           @change="handleSelect"

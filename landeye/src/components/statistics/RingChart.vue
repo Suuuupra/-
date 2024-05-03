@@ -21,10 +21,22 @@ export default {
         tooltip: {
           trigger: 'item'
         },
-        legend: {
-          top: '5%',
-          left: 'center'
+          title: {
+            text: '累计告警数量',
+            target: 'blank',
+            top: '3%',
+            left: '32%',
+            textStyle: {
+              color: '#1a1717',
+              fontSize: 20,
+            }
         },
+        legend: {
+          bottom: '1%',
+          left: 'center',
+          textStyle: {fontSize: 15,color: 'grey'}
+        },
+
         series: [
           {
             name: '累计告警次数',
@@ -62,12 +74,26 @@ export default {
         tooltip: {
           trigger: 'item'
         },
-        legend: {
-          data: ['违规车辆数量'],
-          top: '5%',
-          left:0,
+        title: {
+          text: '违规车辆类型数量',
+          target: 'blank',
+          top: '3%',
+          left: '25%',
+          textStyle: {
+            color: '#1a1717',
+            fontSize: 20,
+          }
         },
         radar: {
+          center:['50%','57%'],
+          radius:90,
+          name: {                             // (圆外的标签)雷达图每个指示器名称的配置项。
+            formatter: '{value}',
+            textStyle: {
+              fontSize: 14,
+              color: 'grey'
+            }
+          },
           // shape: 'circle',
           indicator: [
             { name: '推土机', max: 50 },
@@ -76,7 +102,7 @@ export default {
             { name: '拖拉机', max: 50 },
             { name: '铲车', max: 50 },
             { name: '搅拌车', max: 50 }
-          ]
+          ],
         },
         series: [
           {
@@ -110,19 +136,20 @@ export default {
   width: 48%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+
   flex-direction: column;
 }
 
 .chart {
   width: 100%; /* Adjust width as needed */
-  height: 58%;
+  height: 48%;
   background: #f1f8f0;
   border-radius: 40px;
 }
 .radar {
+  margin-top: 2vh;
   width: 100%;
-  height: 40%;
+  height: 48%;
   background: #f1f8f0;
   border-radius: 40px;
 }

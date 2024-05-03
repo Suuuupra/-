@@ -14,8 +14,6 @@
             {{ item.detail }}
           </div>
           <div class="comment-actions">
-            <span class="comment-action">Like</span>
-            <span class="comment-action">Overrule</span>
             <span class="comment-action" @click="showDetails">Detail</span>
           </div>
           <!-- 模态框 -->
@@ -77,10 +75,9 @@ export default {
 }
 
 .comment-item {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dashed #ccc;
   padding: 20px;
-  border-radius: 20px;
-  border-color: #4da479;
+
 }
 
 .comment-header {
@@ -102,6 +99,7 @@ export default {
 }
 
 .comment-date {
+  margin-top:1vh;
   font-size: 0.8em;
   color: #888;
 }
@@ -112,7 +110,8 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 300px;
-  color: #1c1c1c;
+  color: #4b4a4a;
+  font-weight: bold;
 }
 
 .comment-actions {

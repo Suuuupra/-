@@ -28,7 +28,7 @@
         <div class='icon_logo'>
           <div id='warning_icon' class='bx bxs-bell' @click="toggleWarningMessage"></div>
           <div id="changelightness_icon" :class="{ 'bx bxs-sun': !isclick, 'bx bx-moon': isclick }"   @click="toggleDark()"> </div>
-          <WarningMessage :showWarningMessage="showWarningMessage" />
+          <WarningMessage :showWarningMessage="showWarningMessage"/>
           <div id="user_icon" class='bx bxs-user'></div>
       </div>
       </el-header>
@@ -53,7 +53,7 @@
       };
     },
     methods: {
-      goToMenu: function (path) {
+      goToMenu(path) {
         this.$router.push(path)
         this.isMenuOpen = !this.isMenuOpen
       },
@@ -62,7 +62,7 @@
      } ,
     toggleWarningMessage() {
       this.showWarningMessage = !this.showWarningMessage;
-    }
+    },
     }
   }
 </script>

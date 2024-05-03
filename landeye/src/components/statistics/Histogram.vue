@@ -1,11 +1,11 @@
 <template>
   <div class="container4">
-    <div class="data_title">预警数量</div>
+    <div class="data_title">告警数量变化</div>
     <div class="datechoice1">
       <a-date-picker v-model="startDate" @change="generateDateRange" style="width:100px;height:20px;margin-left:25px"></a-date-picker>
       <a-date-picker v-model="endDate" @change="generateDateRange" style="width:100px;height:20px;"></a-date-picker>
     </div>
-    <div ref="echartsRef" id="Histogram" style="width: 90%; height: 100%;"></div>
+    <div ref="echartsRef" id="Histogram" style="width: 100%; height: 100%;"></div>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
         grid: {
           top: '14%',
           left: '3%',
-          right: '4%',
+          right: '12%',
           bottom: '10%',
           containLabel: true
         },
@@ -42,12 +42,12 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#b6b5ab",
+              color: "#2f2f2d",
             },
             interval: 0,
           },
           axisLine: {
-            show: false
+            show: true
           },
           splitLine: {
             show: false,
@@ -56,9 +56,9 @@ export default {
             show: false,
           },
           nameTextStyle: { // 坐标轴名称的文字样式
-            fontSize: 12,
-            padding: [0, 0, 0, -15],
-            color:'black'
+            fontSize: 16,
+            padding: [0, 0, 0, -5],
+            color:'grey'
           }
         },
         yAxis: {
@@ -71,7 +71,7 @@ export default {
             },
           },
           axisLine: {
-            show: false,
+            show: true,
           },
           splitLine: {
             show: false,
@@ -79,6 +79,10 @@ export default {
           axisTick: {
             show: false,
           },
+          nameTextStyle: { // 坐标轴名称的文字样式
+            fontSize: 15,
+            color:'grey'
+          }
         },
         series: [
           {
