@@ -15,11 +15,10 @@ export default {
     const dataLoaded = ref(false);//若没有告警信息，则不显示
     const coordinate = inject('coordinate');
     const currentData = ref([]);//初始化当前页的数据
-
+    const showModal = ref(false)
     const cameraid = ref();//初始化摄像头id
     const landtype = ref()//初始化用地类型
     const warningrecord = ref()//初始化告警图片
-
     let preFilteredCoords = []
     let currentFilteredCoords = []
     let { msg } = toRefs(props)
@@ -111,8 +110,8 @@ export default {
       //coordinate.value.splice(0, coordinate.value.length); // 删除所有现有元素
       //coordinate.value.push(item.cenlon, item.cenlat);
       coordinate.value = [item.cenlon, item.cenlat];
-      landtype.value = item.type;
-      warningrecord.value = item.date;
+      landtype.value = item.region_type;
+      warningrecord.value = item.img_url;
       console.log('coor',coordinate);
     }
 
@@ -199,6 +198,7 @@ export default {
       cameraid,
       landtype,
       warningrecord,
+      showModal,
       handleItemClick,
       turnDown,
       turnRight,
@@ -263,8 +263,12 @@ export default {
       <h3>经纬度坐标: {{ coordinate[0] }}  {{ coordinate[1] }}</h3>
       <h3>摄像头id： {{ cameraid }} </h3>
       <h3>地块类型： {{ landtype }} </h3>
-      <h3>告警记录： {{ warningrecord }} </h3>
-    </div>
+      <h3>告警记录：<img @click="showModal = true" :src="`http://8.148.10.46:3050/imgs/${warningrecord}`" class="warningimg" alt=""> </h3>
+      <div v-if="showModal" class="big-img">
+        <img :src="`http://8.148.10.46:3050/imgs/${warningrecord}`" class="modal-img" alt="Enlarged Warning Image"/>
+          <a-button class="closebigimg" @click="showModal = false">关闭</a-button>
+      </div>
+  </div>
   </div>
 </template>
 <style scoped>
@@ -416,5 +420,38 @@ export default {
 /* 滚动条滑块:hover状态样式 */
 ::-webkit-scrollbar-thumb:hover {
   background: #777676;
+}
+.warningimg {
+  width:5vw;
+  height:auto;
+}
+.big-img {
+  position:fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #3ea164;
+  padding:1vh ;
+  left:40%;
+  bottom: 5%;
+  border-radius: 1vh;
+  height: auto;
+  z-index:100
+}
+.modal-img {
+  width:20vw;
+  height:auto
+}
+.closebigimg {
+  width:20%;
+  margin-top: 1vh;
+  border-radius: 1vh;
+  font-weight: bold;
+  background-color: #edefb3;
+  color: #4d4c4c;
+}
+.closebigimg:hover {
+  color: #a4a2a2 !important;
+  border: none;
 }
 </style>

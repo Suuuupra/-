@@ -206,7 +206,7 @@ export default {
           }, function() {
             // 移动到目标点后，执行放大动画
             map.getView().animate({
-              zoom: currentZoom, // 恢复到原来的缩放级别
+              zoom: 16, // 恢复到原来的缩放级别
               center: center, // 保持中心不变
               duration: 800,
               easing: inAndOut
