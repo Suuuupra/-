@@ -413,12 +413,31 @@ export default {
       });
     }
 
+    function switchToImg() {
+      map.getLayers().setAt(0, new TileLayer({
+        source: new XYZ({
+          url: 'https://t6.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&tk=22d8b67fcba918adc0a566e96d1587b3'
+        })
+      }));
+    }
+
+    // 切换至矢量图层
+    function switchToVec() {
+      map.getLayers().setAt(0, new TileLayer({
+        source: new XYZ({
+          url: 'https://t6.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&tk=22d8b67fcba918adc0a566e96d1587b3'
+        })
+      }));
+    }
+
 
     return {
       socket_data,
       curve,
       lonlat,
       map,
+      switchToImg,
+      switchToVec,
     }
   },
 }
