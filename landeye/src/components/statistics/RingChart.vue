@@ -1,7 +1,13 @@
 <template>
     <div class="Rchart-container">
-      <div class="chart" ref="chart1" id="chart1"></div>
-      <div class="radar" ref="chart2" id="chart2"></div>
+      <div class="chart">
+      <div class="data_title">累计告警数量</div>
+      <div  ref="chart1" id="chart1" style=" top:-5%;width: 100%; height: 100%;"></div>
+      </div>
+      <div class="radar">
+        <div class="data_title">违规车辆类型数量</div>
+      <div  ref="chart2" id="chart2" style="width: 100%; height: 100%;"></div>
+      </div>
     </div>
 </template>
 
@@ -21,20 +27,10 @@ export default {
         tooltip: {
           trigger: 'item'
         },
-          title: {
-            text: '累计告警数量',
-            target: 'blank',
-            top: '3%',
-            left: '32%',
-            textStyle: {
-              color: '#1a1717',
-              fontSize: 20,
-            }
-        },
         legend: {
           bottom: '1%',
-          left: 'center',
-          textStyle: {fontSize: 15,color: 'grey'}
+          left: 'center',itemWidth: 10,itemHeight: 5,itemGap:8,
+          textStyle: {fontSize: '15px',color: 'grey'}
         },
 
         series: [
@@ -42,7 +38,7 @@ export default {
             name: '累计告警次数',
             type: 'pie',
             radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
+            avoidLabelOverlap: true,
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
@@ -52,10 +48,11 @@ export default {
               show: false,
               position: 'center'
             },
+
             emphasis: {
               label: {
                 show: true,
-                fontSize: 40,
+                fontSize: '25px',
                 fontWeight: 'bold'
               }
             },
@@ -74,26 +71,18 @@ export default {
         tooltip: {
           trigger: 'item'
         },
-        title: {
-          text: '违规车辆类型数量',
-          target: 'blank',
-          top: '3%',
-          left: '25%',
-          textStyle: {
-            color: '#1a1717',
-            fontSize: 20,
-          }
-        },
+
         radar: {
-          center:['50%','57%'],
-          radius:90,
+          center:['50%','50%'],
+          radius:'60%',
           name: {                             // (圆外的标签)雷达图每个指示器名称的配置项。
             formatter: '{value}',
             textStyle: {
-              fontSize: 14,
+              fontSize: '15px',
               color: 'grey'
             }
           },
+          nameGap:'8',
           // shape: 'circle',
           indicator: [
             { name: '推土机', max: 50 },
@@ -108,10 +97,17 @@ export default {
           {
             name: 'Budget vs spending',
             type: 'radar',
+            avoidLabelOverlap: true,
             data: [
               {
                 value: [40, 32, 28, 26, 42, 21],
-                name: '违规车辆数量'
+                name: '违规车辆数量',
+                label: {
+                  normal: {
+                    show:true,
+                    position:'top'
+                  }
+                }
               }
             ]
           }
@@ -136,8 +132,8 @@ export default {
   width: 48%;
   height: 100%;
   display: flex;
-
   flex-direction: column;
+  position: relative;
 }
 
 .chart {

@@ -68,6 +68,7 @@
     transition: opacity 0.5s ease-out;
     opacity: 0;
     overflow-y: auto;
+    border: solid 3px #429663;
    }
    .warningmessage_item {
     border-radius: 10px;

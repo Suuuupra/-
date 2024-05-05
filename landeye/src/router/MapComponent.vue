@@ -449,28 +449,6 @@ export default {
       <a-button class="btn" @click="switchToImg">影像</a-button>
       <a-button class="btn" @click="switchToVec">矢量</a-button>
     </div>
-    <div class="select">
-      <a-select
-          mode="multiple"
-          :default-value="['监控点']"
-          style="margin-left:5px;width: 200px"
-          placeholder="地图要素筛选"
-          @change="handleSelect"
-      >
-        <a-select-option value="监控点">
-          监控点
-        </a-select-option>
-        <a-select-option value="地块边界">
-          地块边界
-        </a-select-option>
-        <a-select-option value="告警点状态">
-          告警点状态
-        </a-select-option>
-        <a-select-option value="告警点级别">
-          告警点级别
-        </a-select-option>
-      </a-select>
-    </div>
     <div id="legend">
       <h2 class="legend-title">图例</h2>
       <div class="legend-item">
@@ -497,17 +475,17 @@ export default {
   z-index: 1000;
 }
 .btn {
-  height: 40px;
+  height: 6.5vh;
   width: auto;
-  margin-right: 10px;
+  margin-right: 2vh;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 1vh 1vh;
   background-color: #3ea164;
   color: #e1e0e0;
   border: none;
-  border-radius: 3px;
+  border-radius: 1vh;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 2vh;
 }
 .btn:hover {
   background-color: #cdeec2;
@@ -545,13 +523,5 @@ export default {
     font-weight: bold;
     color: #1c1c1c;
   }
-}
-.select {
-  top: 2%;
-  display: flex;
-  left: 5%;
-  position: absolute;
-  width:50vh;
-  z-index: 1000;
 }
 </style>

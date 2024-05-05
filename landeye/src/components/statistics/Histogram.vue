@@ -1,10 +1,6 @@
 <template>
   <div class="container4">
     <div class="data_title">告警数量变化</div>
-    <div class="datechoice1">
-      <a-date-picker v-model="startDate" @change="generateDateRange" style="width:100px;height:20px;margin-left:25px"></a-date-picker>
-      <a-date-picker v-model="endDate" @change="generateDateRange" style="width:100px;height:20px;"></a-date-picker>
-    </div>
     <div ref="echartsRef" id="Histogram" style="width: 100%; height: 100%;"></div>
   </div>
 </template>
@@ -27,22 +23,22 @@ export default {
           }
         },
         grid: {
-          top: '14%',
+          top: '40vh',
           left: '3%',
-          right: '12%',
+          right: '55vw',
           bottom: '10%',
           containLabel: true
         },
         legend:{},
         xAxis: {
-          offset: 35,
+          offset: 10,
           name:'日期',
           type: 'category',
-          data: [], // X 轴数据
+          data: ['5月1日','5月2日','5月3日','5月4日','5月5日','5月6日','5月7日'], // X 轴数据
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#2f2f2d",
+              color: "grey",
             },
             interval: 0,
           },
@@ -157,21 +153,21 @@ export default {
   width: 100%;
   height: 48%;
   background: #f1f8f0;
-  border-radius: 40px;
+  border-radius: 4vh;
   margin-left:0;
-  margin-bottom:10px;
+  margin-bottom:1vh;
 }
 .datechoice1 {
   padding-left:16px
 }
 .data_title{
   width: 100%;
-  height: 30px;
+  height: 2vh;
   text-align: center;
   color: #000000;
-  font-size: 1.3rem;
+  font-size: 1.5vw;
   font-Weight: bold;
-  line-height: 40px;
+  line-height: 6vh;
 }
 </style>
 

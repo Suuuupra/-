@@ -1,10 +1,6 @@
 <template>
-  <div class='container3'>
-    <div class="datechoice2">
+  <div class='container3' >
      <div class="data_title">告警类型变化</div>
-    <a-date-picker v-model="startDate" :show-time="true" @change="generateDateRange" style="width:100px;height:20px;"></a-date-picker>
-    <a-date-picker v-model="endDate" :show-time="true" @change="generateDateRange" style="width:100px;height:20px;"></a-date-picker>
-    </div>
     <div ref="chart" id="chartLineBox" style="width: 100%; height: 100%;"></div>
   </div>
 </template>
@@ -19,27 +15,36 @@ export default {
       endDate: '',
       // 指定图表的配置项和数据
       option: {
-        tooltip: { // 设置tip提示
-          trigger: 'item'
-        },
         legend: {
           icon: 'rect',
-          itemWidth: 14,itemHeight: 5,itemGap:10,
+          itemWidth: 10,itemHeight: 5,itemGap:8,
           data: ['工程车辆进入', '人为破坏', '焚烧纵火'],
-          right: '20%',bottom: '0px',
-          textStyle: {fontSize: 16,color: 'grey'}
+          left: 'center',bottom:'1%',
+          textStyle: {fontSize: '15px',color: 'grey'}
+        },
+        tooltip: { // 设置tip提示
+          trigger: 'item',
+          show:true,
+          backgroundColor: "rgba(255,255,255,0.1)",
+          axisPointer: {
+            type: "none"
+          },
+          formatter: function (params) {
+            return '数量: ' + params.value;
+          }
         },
         grid: {
-          top: "20%",
+          top: "60vh",
           left: "3%",
-          right: "10%",
+          right: "50vw",
           bottom: "15%",
           containLabel: true,
         },
         xAxis: { // 设置x轴
+          offset:10,
           type: 'category',
           boundaryGap: false, // 坐标轴两边不留白
-          data: [],
+          data:  ['5月1日','5月2日','5月3日','5月4日','5月5日','5月6日','5月7日'],
           name: '日期', // X轴 name
           nameTextStyle: { // 坐标轴名称的文字样式
             fontSize: 16,
@@ -47,21 +52,20 @@ export default {
             color:'grey'
           },
           axisLabel:{
-            margin: 30,
-            color: "#61B087",
+            color: "grey",
           },
           axisLine:{
             show: false,
           },
           axisTick: {
-            show: true,
+            show: false,
             length: 25,
             lineStyle: {
               color: "#61B087",
             },
           },
           splitLine: {
-            show: true,
+            show: false,
             lineStyle: {
               color: "#61B087",
             },
@@ -131,9 +135,6 @@ export default {
                   ),
                 },
               },
-              tooltip: {
-                show: false,
-              },
               itemStyle: {
                 color: "red",
                 borderColor: "#fff",
@@ -171,9 +172,6 @@ export default {
                 ),
               },
             },
-            tooltip: {
-              show: false,
-            },
             itemStyle: {
               color: "blue",
               borderColor: "#fff",
@@ -210,9 +208,6 @@ export default {
                     false
                 ),
               },
-            },
-            tooltip: {
-              show: false,
             },
             itemStyle: {
               color: "green",
@@ -274,7 +269,7 @@ export default {
    height: 10%;
    text-align: center;
    color: #000000;
-   font-size: 1.3rem;
+   font-size: 2rem;
    font-Weight: bold;
    line-height: 40px;
  }
