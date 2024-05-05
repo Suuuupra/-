@@ -7,21 +7,21 @@
             <img class="comment-avatar" src="/img/logo.png" alt="Avatar">
             <div class="comment-info">
               <div class="comment-author">{{ item.name }}</div>
-              <div class="comment-date">{{ item.time.toString().replace("T", " ").replace("Z", "") }}</div>
+              <div class="comment-date">{{ item.time.toString().replace("T", " ").replace("Z", "").replace(".000", "") }}</div>
             </div>
           </div>
           <div class="comment-content">
             {{ item.detail }}
           </div>
           <div class="comment-actions">
-            <span class="comment-action" @click="showDetails">Detail</span>
+            <span class="comment-action" @click="showDetails(item.name, item.detail)">Detail</span>
           </div>
           <!-- 模态框 -->
           <div v-if="showModal" class="modal">
             <div class="modal-content">
               <span class="close" @click="hideModal">&times;</span>
-              <div>{{ item.name }}</div>
-              <div class="comment-content-full">{{ item.detail }}</div> <!-- 显示完整的评论内容 -->
+              <div>处理人：{{ currentName }}</div>
+              <div class="comment-content-full">处理详情：{{ currentLog }}</div> <!-- 显示完整的评论内容 -->
             </div>
           </div>
         </div>
@@ -37,6 +37,8 @@ export default {
     return {
       data: '',
       showModal: false,
+      currentLog: null,
+      currentName: null,
     }
   },
   methods:{
@@ -49,8 +51,10 @@ export default {
             console.error('Error fetching data:', error);
           });
     },
-    showDetails() {
-      this.showModal = !this.showModal; // 点击详情按钮显示模态框
+    showDetails(name, detail) {
+      this.showModal = !this.showModal // 点击详情按钮显示模态框
+      this.currentName = name
+      this.currentLog = detail
     },
     hideModal() {
       this.showModal = false; // 关闭模态框
@@ -142,17 +146,14 @@ export default {
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: auto;
+  background-color: #f9f9f9;
+  margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 600px; /* 可根据需要调整模态框的最大宽度 */
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: #1c1c1c;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 70%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .close {
@@ -160,6 +161,7 @@ export default {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 .close:hover,
 .close:focus {
