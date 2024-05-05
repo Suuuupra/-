@@ -7,6 +7,7 @@
           type="datetime"
           size=large
           placeholder="处理时间"
+          format="YYYY-MM-DD HH:MM"
           value-format="YYYY-MM-DD HH:MM"
       >
       </el-date-picker>
